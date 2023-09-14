@@ -1,0 +1,40 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Cadastrar</ion-title>
+    <ion-button slot="start" expand="block" fill="clear" size="small" routerLink="/home">  
+      <ion-icon name="arrow-back-outline"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-content >
+    <ion-list>
+      <ion-item>
+        <ion-input label="Nome" placeholder="Insira o nome" [(ngModel)]="nome"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Descricao" placeholder="Insira a descricao" [(ngModel)]="descricao"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Dia" placeholder="Insira o dia" [(ngModel)]="dia" type="number"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Mes" placeholder="Insira o mes" [(ngModel)]="mes" type="number"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Ano" placeholder="Insira o ano" [(ngModel)]="ano" type="number"></ion-input>
+      </ion-item>
+
+        <ion-item>
+          <ion-select label="Horario" placeholder="selecionar" [(ngModel)]="horario">
+            <ion-select-option value= 0 >Manha: 7h-12h</ion-select-option>
+            <ion-select-option value= 1 >Tarde 13h-18h30</ion-select-option>
+            <ion-select-option value= 2 >Noite 18h30-22h30</ion-select-option>
+            <ion-select-option value= 3 >Madrugada 23h-5h</ion-select-option>
+          </ion-select>
+        </ion-item>
+      <ion-button expand="block" (click)="cadastrar()">Enviar</ion-button>
+    </ion-list>
+</ion-content>
+
