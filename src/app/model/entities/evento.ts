@@ -11,14 +11,8 @@ export class evento{
     private _ano : number;
     private _descricao : string;
     private _horario : Horario;
+    private _downloadURL: any;
 
-
-    public get id(): string {
-        return this._id;
-    }
-    public set id(value: string) {
-        this._id = value;
-    }
 
     constructor(nome: string, dia: number, mes: number, ano: number, descricao: string, horario : Horario){
         this._nome = nome;
@@ -28,6 +22,22 @@ export class evento{
         this._descricao = descricao;
         this._horario = horario;
 
+
+    }
+
+    public get downloadURL(): any {
+        return this._downloadURL;
+    }
+    public set downloadURL(value: any) {
+        this._downloadURL = value;
+    }
+
+
+    public get id(): string {
+        return this._id;
+    }
+    public set id(value: string) {
+        this._id = value;
     }
         /**
      * Getter horario

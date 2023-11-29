@@ -34,7 +34,15 @@
             <ion-select-option value= 3 >Madrugada 23h-5h</ion-select-option>
           </ion-select>
         </ion-item>
+
+        <ion-item>
+          <ion-button size="default" color="success" shape="round" >
+            <input type="file"  (change)="uploadFile($event.target)" />
+          </ion-button>
+        </ion-item>
+    
       <ion-button expand="block" (click)="cadastrar()">Enviar</ion-button>
     </ion-list>
+
 </ion-content>
 

@@ -21,6 +21,7 @@ export class DetalharPage implements OnInit {
   dia!: number;
   horario! : Horario;
   edicao : boolean = true;
+  public imagem! : any;
 
   constructor(private firebase : FirebaseService, private router : Router) {
 
@@ -44,17 +45,28 @@ export class DetalharPage implements OnInit {
     }
   }
 
+
   editar(){
-    let novo : evento = new evento(this.nome, this.dia, this.mes, this.ano, this.descricao, this.horario);
-    novo.descricao = this.descricao;
-    novo.horario = this.horario;
-    this.firebase.update(novo, this.evento.id);
-    this.router.navigate(['/home']);
+    let novo: evento = new evento(this.nome, this.dia, this.mes, this.ano, this.descricao, this.horario);
+    novo.id = this.evento.id;
+    if(this.imagem){
+      this.firebase.uploadImage(this.imagem, novo);
+    }else{
+      novo.downloadURL = this.evento.downloadURL;
+      this.firebase.update(novo, this.evento.id);
+    }
+    this.router.navigate(["/home"]);
   }
+
 
   excluir(){
     this.firebase.delete(this.evento.id);
     this.router.navigate(['/home'])
   }
+
+  uploadFile(imagem: any){
+    this.imagem = imagem.files;
+  }
+
 
 }

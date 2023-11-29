@@ -36,6 +36,16 @@
         <ion-select-option value= 3 >Madrugada 23h-5h</ion-select-option>
       </ion-select>
     </ion-item>
+    <ion-item *ngIf="evento.downloadURL !=null">
+      <img src="{{evento.downloadURL}}" />
+    </ion-item>
+    
+    <ion-item>
+      <ion-button size="default" color="success" shape="round" disabled="{{edicao}}">
+        <input type="file" (change)="uploadFile($event.target)" />
+      </ion-button>
+    </ion-item>
+
     <ion-button expand="block" (click)="editar()" color="secondary" disabled="{{edicao}}">Salvar</ion-button>
     <ion-button expand="block" (click)="excluir()" color="danger" disabled="{{edicao}}">Excluir</ion-button>
   </ion-list>

@@ -6,14 +6,19 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content >
-  <ion-list *ngFor="let evento of lista_eventos;">
-    <ion-item (click)='editar(evento)'>
-      <ion-label>{{evento.nome}}</ion-label>
+
+<ion-content>
+  <ion-list *ngFor="let evento of lista_eventos">
+    <ion-item (click)="editar(evento)">
+      <ion-avatar>
+        <img src="{{evento.downloadURL}}"/>
+      </ion-avatar>
+      <ion-label style="margin-left: 5%">{{evento.nome}}</ion-label>
     </ion-item>
   </ion-list>
-  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-    <ion-fab-button color = "secondary" (click)="irParaCadastrar()">
+
+  <ion-fab horizontal="end" vertical="bottom">
+    <ion-fab-button (click)="irParaCadastrar()">
       <ion-icon name="person-add-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
