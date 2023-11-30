@@ -41,7 +41,7 @@ export class CadastrarPage implements OnInit {
       }else{
         this.firebase.create(novo);
       }
-      this.presentAlert("Sucesso", "Contato Salvo!");
+      this.presentAlert("Sucesso", "Evento Salvo!");
       this.router.navigate(["/home"]);
     }else{
      this.presentAlert("Erro", "Campos Obrigatórios!");
