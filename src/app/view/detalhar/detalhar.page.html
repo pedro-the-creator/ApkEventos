@@ -15,6 +15,9 @@
     <ion-item>
       <ion-input label="Nome" placeholder="Insira o nome" [(ngModel)]="nome" disabled="{{edicao}}"></ion-input>
     </ion-item>
+    <ion-item *ngIf="evento.downloadURL !=null">
+      <img src="{{evento.downloadURL}}" />
+    </ion-item>
     <ion-item>
       <ion-input label="Descrição" placeholder="Insira a Descrição" [(ngModel)]="descricao" disabled="{{edicao}}"></ion-input>
     </ion-item>
@@ -36,9 +39,7 @@
         <ion-select-option value= 3 >Madrugada 23h-5h</ion-select-option>
       </ion-select>
     </ion-item>
-    <ion-item *ngIf="evento.downloadURL !=null">
-      <img src="{{evento.downloadURL}}" />
-    </ion-item>
+  
     
     <ion-item>
       <ion-button size="default" color="success" shape="round" disabled="{{edicao}}">
