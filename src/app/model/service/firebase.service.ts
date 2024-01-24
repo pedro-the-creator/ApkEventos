@@ -13,8 +13,20 @@ export class FirebaseService {
 
   constructor(private firestore : AngularFirestore, private storage : AngularFireStorage) { }
 
-  read(){
-    return this.firestore.collection(this.PATH).snapshotChanges();
+
+  read(uid: string){
+    return this.firestore.collection(this.PATH,
+    ref => ref.where('uid', '==', uid))
+    .snapshotChanges();
+  }
+
+  public getUsuarioLogado(){
+    const usuario = JSON.parse(localStorage.getItem('usuario') || 'null');
+    if(usuario !== null){
+      return usuario;
+    }else{
+      return null;
+    }
   }
 
   create(eventos : evento){
@@ -25,7 +37,8 @@ export class FirebaseService {
       mes: eventos.mes,
       ano: eventos.ano,
       descricao: eventos.descricao,
-      Horario: eventos.horario
+      Horario: eventos.horario,
+      uid : eventos.uid
 
 
 

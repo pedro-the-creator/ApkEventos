@@ -13,6 +13,7 @@ import { FirebaseService } from 'src/app/model/service/firebase.service';
 })
 export class DetalharPage implements OnInit {
   
+  user! : any;
   evento!: evento;
   nome!: string;
   descricao!: string;
@@ -47,14 +48,16 @@ export class DetalharPage implements OnInit {
 
 
   editar(){
-    let novo: evento = new evento(this.nome, this.dia, this.mes, this.ano, this.descricao, this.horario);
+    let novo: evento = new evento(this.nome, this.dia, this.mes, this.ano, this.descricao, this.horario,this.user);
     novo.id = this.evento.id;
     if(this.imagem){
       this.firebase.uploadImage(this.imagem, novo);
     }else{
       novo.downloadURL = this.evento.downloadURL;
       this.firebase.update(novo, this.evento.id);
+      novo.uid = this.user.uid;
     }
+    
     this.router.navigate(["/home"]);
   }
 

@@ -1,8 +1,8 @@
 enum Horario{
-    MANHA= 0,
-    TARDE = 1,
-    NOITE = 2,
-    MADRUGADA = 3
+    MANHA= 'manha',
+    TARDE = 'tarde',
+    NOITE = 'noite',
+    MADRUGADA = 'madrugada'
 }
 
 export default Horario;

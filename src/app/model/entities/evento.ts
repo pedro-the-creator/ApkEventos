@@ -6,6 +6,8 @@ export class evento{
 
     private _id! : string;
     private _nome : string;
+    private _uid: string;
+   
     private _dia : number;
     private _mes : number;
     private _ano : number;
@@ -14,15 +16,23 @@ export class evento{
     private _downloadURL: any;
 
 
-    constructor(nome: string, dia: number, mes: number, ano: number, descricao: string, horario : Horario){
+    constructor(nome: string, dia: number, mes: number, ano: number, descricao: string, horario : Horario, uid : string){
         this._nome = nome;
         this._dia = dia;
         this._mes = mes;
         this._ano = ano;
         this._descricao = descricao;
         this._horario = horario;
+        this._uid = uid;
 
 
+    }
+
+    public get uid(): string {
+        return this._uid;
+    }
+    public set uid(value: string) {
+        this._uid = value;
     }
 
     public get downloadURL(): any {

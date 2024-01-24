@@ -4,21 +4,31 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: 'home',
-    loadChildren: () => import('./view/home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./view/eventos/home/home.module').then( m => m.HomePageModule)
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'signin',
     pathMatch: 'full'
   },
   {
     path: 'cadastrar',
-    loadChildren: () => import('./view/cadastrar/cadastrar.module').then( m => m.CadastrarPageModule)
+    loadChildren: () => import('./view/eventos/cadastrar/cadastrar.module').then( m => m.CadastrarPageModule)
   },
   {
     path: 'detalhar',
-    loadChildren: () => import('./view/detalhar/detalhar.module').then( m => m.DetalharPageModule)
+    loadChildren: () => import('./view/eventos/detalhar/detalhar.module').then( m => m.DetalharPageModule)
   },
+  {
+    path: 'signup',
+    loadChildren: () => import('./view/usuarios/signup/signup.module').then( m => m.SignupPageModule)
+  },
+  {
+    path: 'signin',
+    loadChildren: () => import('./view/usuarios/signin/signin.module').then( m => m.SigninPageModule)
+  },
+
+
 ];
 
 @NgModule({
