@@ -35,27 +35,25 @@ export class AuthService {
   
   //metodos gerais
   public signOut() {
-    console.log('Antes do signOut');
+   
     return this.fireAuth.signOut().then(() => {
-      console.log('Depois do signOut');
-      localStorage.removeItem('usuario');
-      console.log('localStorage removido');
+      localStorage.removeItem('usuario'); // Limpar localStorage após o logout
+      
     });
   }
 
   public getUserLogged(){
     const usuario = JSON.parse(localStorage.getItem('usuario') || 'null');
-    if(usuario !== null){
+    if(usuario !== null && usuario.uid){
       return usuario;
-    }else{
+    } else {
       return null;
     }
   }
 
-   public isLoggedIn(): boolean{
-    const usuario = JSON.parse(localStorage.getItem('usuario') || 'null');
-      return (usuario !== null) ? true : false;
-   }
+  public isLoggedIn(): boolean{
+    return this.usuarioDados !== null;
+  }
 
    public signInWithGoogle(){
     const provider = new GoogleAuthProvider();

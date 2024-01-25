@@ -55,36 +55,37 @@ export class FirebaseService {
   }
 
   uploadImage(imagem: any, eventos: evento) {
-    const file = imagem.item(0);
-    if (file.type.split('/')[0] !== 'image') {
-      console.error('Tipo Não Suportado!');
-      return;
-    }
-
-    const path = `images/${eventos.id}_${file.name}`;
-    const fileRef = this.storage.ref(path);
-    let task = this.storage.upload(path, file);
-
-    task.snapshotChanges().pipe(
-      finalize(() => {
-        let uploadedFileURL = fileRef.getDownloadURL();
-        uploadedFileURL.subscribe(resp => {
-          eventos.downloadURL = resp;
-          let user = this.auth.getUserLogged();
-          if (user != null) {
-            eventos.uid = user.uid;
-            if (!eventos.id) {
-              this.createWithAvatar(eventos);
-            } else {
-              this.updateWithImage(eventos, eventos.id);
-            }
-          }
-        });
-      })
-    ).subscribe();
-
-    return task;
-  }
+    return new Promise((resolve, reject) => {
+       const file = imagem.item(0);
+       if (file.type.split('/')[0] !== 'image') {
+         console.error('Tipo Não Suportado!');
+         return;
+       }
+   
+       const path = `images/${eventos.id}_${file.name}`;
+       const fileRef = this.storage.ref(path);
+       let task = this.storage.upload(path, file);
+   
+       task.snapshotChanges().pipe(
+         finalize(() => {
+           let uploadedFileURL = fileRef.getDownloadURL();
+           uploadedFileURL.subscribe(resp => {
+             eventos.downloadURL = resp;
+             let user = this.auth.getUserLogged();
+             if (user != null) {
+               eventos.uid = user.uid;
+               if (!eventos.id) {
+                 this.createWithAvatar(eventos).then(resolve).catch(reject);
+               } else {
+                 this.updateWithImage(eventos, eventos.id).then(resolve).catch(reject);
+               }
+             }
+           });
+         })
+       ).subscribe();
+    });
+   }
+   
 
   createWithAvatar(eventos: evento) {
     return this.firestore.collection(this.PATH).add({

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { evento } from 'src/app/model/entities/evento';
 import { FirebaseService } from '../../../model/service/firebase.service';
 import { AuthService } from 'src/app/model/service/auth.service';
-import { User } from '@firebase/auth';
+
 
 @Component({
  selector: 'app-home',
