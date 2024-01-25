@@ -34,9 +34,12 @@ export class AuthService {
   }
   
   //metodos gerais
-  public signOut(){
+  public signOut() {
+    console.log('Antes do signOut');
     return this.fireAuth.signOut().then(() => {
+      console.log('Depois do signOut');
       localStorage.removeItem('usuario');
+      console.log('localStorage removido');
     });
   }
 
