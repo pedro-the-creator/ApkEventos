@@ -1,5 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
-import { FirebaseService } from './firebase.service';
+
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { getAuth, signInWithPopup, browserPopupRedirectResolver, GoogleAuthProvider, GithubAuthProvider } from "firebase/auth";
 
@@ -9,7 +9,7 @@ import { getAuth, signInWithPopup, browserPopupRedirectResolver, GoogleAuthProvi
 export class AuthService {
   usuarioDados: any;
 
-  constructor(private firebase: FirebaseService, private fireAuth: AngularFireAuth, private ngZone: NgZone) {
+  constructor(private fireAuth: AngularFireAuth, private ngZone: NgZone) {
     this.fireAuth.authState.subscribe(usuario => {
       if(usuario){
         this.usuarioDados = usuario;

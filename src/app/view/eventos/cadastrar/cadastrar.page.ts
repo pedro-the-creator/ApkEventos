@@ -38,19 +38,25 @@ export class CadastrarPage implements OnInit {
 
   cadastrar(){
     if(this.nome && this.descricao){
-      let novo : evento = new evento(this.nome, this.dia, this.mes, this.ano, this.descricao, this.horario,this.user);
-      if(this.imagem){
-        this.firebase.uploadImage(this.imagem, novo);
-      }else{
-        this.firebase.create(novo);
-      }
-      novo.uid = this.user.uid;
-      this.presentAlert("Sucesso", "Evento Salvo!");
-      this.router.navigate(["/home"]);
-    }else{
-     this.presentAlert("Erro", "Campos Obrigatórios!");
+      this.firebase.getUsuarioLogado().subscribe((user) => {
+        if(user != null){
+          let novo : evento = new evento(this.nome, this.dia, this.mes, this.ano, this.descricao, this.horario, user.uid);
+          if(this.imagem){
+            this.firebase.uploadImage(this.imagem, novo);
+          } else {
+            this.firebase.create(novo);
+          }
+          this.presentAlert("Sucesso", "Evento Salvo!");
+          this.router.navigate(["/home"]);
+        } else {
+          this.presentAlert("Erro", "Usuário não logado!");
+        }
+      });
+    } else {
+      this.presentAlert("Erro", "Campos Obrigatórios!");
     }
-  }
+}
+
   
 
 
