@@ -1,4 +1,5 @@
-import Horario from "./Horario";
+import horario from "./horario";
+
 
 
 export class evento{
@@ -12,11 +13,11 @@ export class evento{
     private _mes : number;
     private _ano : number;
     private _descricao : string;
-    private _horario : Horario;
+    private _horario : horario;
     private _downloadURL: any;
 
 
-    constructor(nome: string, dia: number, mes: number, ano: number, descricao: string, horario : Horario, uid : string){
+    constructor(nome: string, dia: number, mes: number, ano: number, descricao: string, horario : horario, uid : string){
         this._nome = nome;
         this._dia = dia;
         this._mes = mes;
@@ -53,7 +54,7 @@ export class evento{
      * Getter horario
      * @return {Horario}
      */
-	public get horario(): Horario {
+	public get horario(): horario {
 		return this._horario;
 	}
 
@@ -61,7 +62,7 @@ export class evento{
      * Setter horario
      * @param {Horario} value
      */
-	public set horario(value: Horario) {
+	public set horario(value: horario) {
 		this._horario = value;
 	}
     

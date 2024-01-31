@@ -58,11 +58,13 @@ export class SigninPage implements OnInit {
 
   logarComGoogle() {
     this.authService.signInWithGoogle()
-      .then(() => {
+      .then((res) => {
+        this.alert.dismissLoader();
         this.alert.presentAlert('Olá', 'Seja Bem-Vindo!');
         this.router.navigate(['/home']);
       })
       .catch((error) => {
+        this.alert.dismissLoader();
         this.alert.presentAlert('Erro ao Logar', 'Tente Novamente');
         console.log(error.message);
       });
@@ -71,10 +73,12 @@ export class SigninPage implements OnInit {
   logarComGithub() {
     this.authService.signInWithGithub()
       .then(() => {
+        this.alert.dismissLoader();
         this.alert.presentAlert('Olá', 'Seja Bem-Vindo!');
         this.router.navigate(['/home']);
       })
       .catch((error) => {
+        this.alert.dismissLoader();
         this.alert.presentAlert('Erro ao Logar', 'Tente Novamente');
         console.log(error.message);
       });
@@ -83,4 +87,6 @@ export class SigninPage implements OnInit {
   irParaSignUp() {
     this.router.navigate(['/signup']);
   }
+
+
 }

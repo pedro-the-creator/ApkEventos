@@ -34,7 +34,7 @@ export class FirebaseService {
       mes: eventos.mes,
       ano: eventos.ano,
       descricao: eventos.descricao,
-      Horario: eventos.horario,
+      horario: eventos.horario,
       uid: eventos.uid
     });
   }
@@ -46,7 +46,8 @@ export class FirebaseService {
       mes: eventos.mes,
       ano: eventos.ano,
       descricao: eventos.descricao,
-      Horario: eventos.horario
+      horario: eventos.horario,
+      uid: eventos.uid
     });
   }
 
@@ -94,7 +95,7 @@ export class FirebaseService {
       mes: eventos.mes,
       ano: eventos.ano,
       descricao: eventos.descricao,
-      Horario: eventos.horario,
+      horario: eventos.horario,
       downloadURL: eventos.downloadURL,
       uid: eventos.uid
     });
@@ -107,7 +108,7 @@ export class FirebaseService {
       mes: eventos.mes,
       ano: eventos.ano,
       descricao: eventos.descricao,
-      Horario: eventos.horario,
+      horario: eventos.horario,
       downloadURL: eventos.downloadURL,
       uid: eventos.uid
     });

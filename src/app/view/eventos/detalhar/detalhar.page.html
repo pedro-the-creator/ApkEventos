@@ -1,53 +1,65 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>Atualizar</ion-title>
-    <ion-button slot="start" expand="block" fill="clear" size="small" routerLink="/home">  
+    <ion-button slot="start" expand="block" fill="clear" size="small" routerLink="/home">
       <ion-icon name="arrow-back-outline"></ion-icon>
     </ion-button>
   </ion-toolbar>
 </ion-header>
 
-<ion-content >
+<ion-content>
   <ion-list>
     <ion-item>
-      <ion-toggle (ionChange)="habilitarEdicao()">Habilitar Edição</ion-toggle>
-    </ion-item>
-    <ion-item>
-      <ion-input label="Nome" placeholder="Insira o nome" [(ngModel)]="nome" disabled="{{edicao}}"></ion-input>
-    </ion-item>
-    <ion-item *ngIf="evento.downloadURL !=null">
-      <img src="{{evento.downloadURL}}" />
-    </ion-item>
-    <ion-item>
-      <ion-input label="Descrição" placeholder="Insira a Descrição" [(ngModel)]="descricao" disabled="{{edicao}}"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input label="Dia" placeholder="Insira o dia" [(ngModel)]="dia" type="number" disabled="{{edicao}}"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input label="Mes" placeholder="Insira o dia" [(ngModel)]="mes" type="number" disabled="{{edicao}}"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input label="Ano" placeholder="Insira o dia" [(ngModel)]="ano" type="number" disabled="{{edicao}}"></ion-input>
+      <ion-label>Habilitar Edição</ion-label>
+      <ion-toggle [checked]="edicao" (click)="habilitarEdicao()"></ion-toggle>
     </ion-item>
 
-    <ion-item>
-      <ion-select label="Horario" placeholder="Selecione" [(ngModel)]="horario" disabled="{{edicao}}">
-        <ion-select-option value= "manha" >Manha 7h-12h</ion-select-option>
-        <ion-select-option value= "tarde" >Tarde 13h-18h30</ion-select-option>
-        <ion-select-option value= "noite" >Noite 18h30-22h30</ion-select-option>
-        <ion-select-option value= "madrugada" >Madrugada 23h-5h</ion-select-option>
-      </ion-select>
-    </ion-item>
-  
-    
-    <ion-item>
-      <ion-button size="default" color="success" shape="round" disabled="{{edicao}}">
-        <input type="file" (change)="uploadFile($event.target)" />
-      </ion-button>
-    </ion-item>
-
-    <ion-button expand="block" (click)="editar()" color="secondary" disabled="{{edicao}}">Salvar</ion-button>
-    <ion-button expand="block" (click)="excluir()" color="danger" disabled="{{edicao}}">Excluir</ion-button>
+    <form [formGroup]="formDetalhar" (ngSubmit)="submitForm()" class="form">
+      <ion-item>
+        <ion-input label="Nome" placeholder="Insira o nome" formControlName="nome"></ion-input>
+      </ion-item>
+      <span *ngIf="formDetalhar.get('nome')?.touched && formDetalhar.get('nome')?.errors?.['required']">Nome é Obrigatório!</span>
+      <ion-item *ngIf="evento.downloadURL != null">
+        <img src="{{evento.downloadURL}}" />
+      </ion-item>
+      <ion-item>
+        <ion-input label="Descricao" placeholder="Insira a descricao" formControlName="descricao"></ion-input>
+      </ion-item>
+      <span *ngIf="formDetalhar.get('descricao')?.touched && formDetalhar.get('descricao')?.errors?.['required']">Descrição é Obrigatória!</span>
+      <ion-item>
+        <ion-input label="Dia" placeholder="Insira o dia" formControlName="dia" type="number" min="1" max="31"></ion-input>
+       </ion-item>
+       <span *ngIf="formDetalhar.get('dia')?.touched && formDetalhar.get('dia')?.errors?.['required']">Dia é obrigatório!</span>
+       <span *ngIf="formDetalhar.get('dia')?.touched && formDetalhar.get('dia')?.errors?.['min']">Dia deve ser maior ou igual a 1!</span>
+       <span *ngIf="formDetalhar.get('dia')?.touched && formDetalhar.get('dia')?.errors?.['max']">Dia deve ser menor ou igual a 31!</span>
+       <ion-item>
+        <ion-input label="Mes" placeholder="Insira o mes" formControlName="mes" type="number" min="1" max="12"></ion-input>
+       </ion-item>
+       <span *ngIf="formDetalhar.get('mes')?.touched && formDetalhar.get('mes')?.errors?.['required']">Mês é obrigatório!</span>
+       <span *ngIf="formDetalhar.get('mes')?.touched && formDetalhar.get('mes')?.errors?.['min']">Mês deve ser maior ou igual a 1!</span>
+       <span *ngIf="formDetalhar.get('mes')?.touched && formDetalhar.get('mes')?.errors?.['max']">Mês deve ser menor ou igual a 12!</span>
+       <ion-item>
+        <ion-input label="Ano" placeholder="Insira o ano" formControlName="ano" type="number" min="1900" max="2099"></ion-input>
+       </ion-item>
+       <span *ngIf="formDetalhar.get('ano')?.touched && formDetalhar.get('ano')?.errors?.['required']">Ano é obrigatório!</span>
+       <span *ngIf="formDetalhar.get('ano')?.touched && formDetalhar.get('ano')?.errors?.['min']">Ano deve ser maior ou igual a 1900!</span>
+       <span *ngIf="formDetalhar.get('ano')?.touched && formDetalhar.get('ano')?.errors?.['max']">Ano deve ser menor ou igual a 2099!</span>
+      <ion-item>
+        <ion-select label="Horario" formControlName="horario">
+          <ion-select-option value="manha">Manha: 7h-12h</ion-select-option>
+          <ion-select-option value="tarde">Tarde 13h-18h30</ion-select-option>
+          <ion-select-option value="noite">Noite 18h30-22h30</ion-select-option>
+          <ion-select-option value="madrugada">Madrugada 23h-5h</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <span *ngIf="formDetalhar.get('horario')?.touched && formDetalhar.get('horario')?.errors?.['required']">Horário é Obrigatório!</span>
+      <ion-item>
+        <ion-button size="default" color="success" shape="round">
+          <input type="file" (change)="uploadFile($event.target)" />
+        </ion-button>
+      </ion-item>
+      <ion-button expand="block" type="submit" color="secondary">Salvar</ion-button>
+      <ion-button expand="block" (click)="excluir()" color="danger">Excluir</ion-button>
+    </form>
   </ion-list>
 </ion-content>

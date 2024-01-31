@@ -1,8 +1,8 @@
-enum Horario{
+enum horario{
     MANHA= 'manha',
     TARDE = 'tarde',
     NOITE = 'noite',
     MADRUGADA = 'madrugada'
 }
 
-export default Horario;
+export default horario;
