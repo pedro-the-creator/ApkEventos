@@ -66,21 +66,21 @@ export class DetalharPage implements OnInit {
   
   submitForm(): void {
     if (!this.formDetalhar.valid) {
-       this.alert.presentAlert('Erro', 'Formulário Inválido!');
+      this.alert.presentAlert('Erro', 'Formulário Inválido!');
     } else {
-       this.alert.simpleLoader();
-       this.editar();
+      this.alert.simpleLoader();
+      this.editar();
     }
-   }
+  }
    
 
 habilitarEdicao() {
   if (this.edicao) {
     this.edicao = false;
-    this.formDetalhar.disable(); // desativa o formulário se a edição estiver desativada
+    this.formDetalhar.disable(); 
   } else {
     this.edicao = true;
-    this.formDetalhar.enable(); // ativa o formulário se a edição estiver ativada
+    this.formDetalhar.enable(); 
   }
 }
 
@@ -88,27 +88,24 @@ editar() {
   let formValues = this.formDetalhar.getRawValue();
   let novo: evento = new evento(formValues.nome, formValues.dia, formValues.mes, formValues.ano, formValues.descricao, formValues.horario, this.user.uid);
   novo.id = this.evento.id;
-  this.alert.simpleLoader();
   if(this.imagem){
      this.firebase.uploadImage(this.imagem, novo)
        .then(() => {
-         this.alert.dismissLoader();
          this.router.navigate(["/home"]);
+         this.alert.dismissLoader();
        })
        .catch(error => {
          console.error(error);
-         this.alert.dismissLoader(); // Adicionado para garantir que o loader seja fechado mesmo se houver um erro
        });
  } else {
      novo.downloadURL = this.evento.downloadURL;
      this.firebase.update(novo, this.evento.id)
        .then(() => {
-         this.alert.dismissLoader();
          this.router.navigate(["/home"]);
+         this.alert.dismissLoader();
        })
        .catch(error => {
          console.error(error);
-         this.alert.dismissLoader(); // Adicionado para garantir que o loader seja fechado mesmo se houver um erro
        });
      novo.uid = this.user.uid;
  }

@@ -37,7 +37,7 @@ export class AuthService {
   public signOut() {
    
     return this.fireAuth.signOut().then(() => {
-      localStorage.removeItem('usuario'); // Limpar localStorage após o logout
+      localStorage.removeItem('usuario'); 
       
     });
   }
