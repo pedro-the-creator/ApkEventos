@@ -47,6 +47,10 @@ export class HomePage {
     this.router.navigate(["/signin"]);
     })
     }
+
+  showEvent(){
+    
+  }
     
 }
 
