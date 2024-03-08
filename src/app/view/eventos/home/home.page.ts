@@ -54,16 +54,19 @@ export class HomePage {
 
   onSearchTermChange(event?: any) {
     if (event?.type === 'submit' || this.searchTerm.length > 0) {
-      if (this.searchTerm.length > 0) {
-        this.firebase.buscarEventosPorNome(this.searchTerm).subscribe(res => {
-          this.lista_eventos = res.map(evento => ({
-            id: evento.payload.doc.id,
-            ...evento.payload.doc.data() as any
-          }) as evento);
-        });
-      } else {
-        this.carregarEventos(); // Recarrega eventos ao limpar a busca
-      }
+       if (this.searchTerm.length > 0) {
+         this.firebase.buscarEventosPorNome(this.searchTerm).subscribe(res => {
+           this.lista_eventos = res.map(evento => ({
+             id: evento.payload.doc.id,
+             ...evento.payload.doc.data() as any
+           }) as evento);
+         });
+       } else {
+         this.carregarEventos(); // Recarrega eventos ao limpar a busca
+       }
+    } else {
+       this.carregarEventos(); // Adicionado para garantir que todos os eventos sejam mostrados quando o campo de busca estiver vazio
     }
-  }
+   }
+   
 }
