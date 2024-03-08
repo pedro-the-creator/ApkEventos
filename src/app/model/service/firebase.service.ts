@@ -5,6 +5,7 @@ import { finalize } from 'rxjs/operators';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AuthService } from './auth.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,12 @@ export class FirebaseService {
   public getUsuarioLogado() {
     return this.afAuth.authState;
   }
+
+  
+  public buscarEventosPorNome(nome: string): Observable<any[]> {
+    return this.firestore.collection(this.PATH, ref => ref.where('nome', '==', nome)).snapshotChanges();
+ }
+ 
 
   create(eventos: evento) {
     return this.firestore.collection(this.PATH).add({

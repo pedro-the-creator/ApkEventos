@@ -5,21 +5,23 @@
     </ion-title>
   </ion-toolbar>
   <ion-toolbar>
-    <ion-searchbar searchIcon="search-circle-outline" placeholder="Buscar Evento" show-clear-button="focus" (ionChange)="showEvent($evento)"></ion-searchbar>
-   
+    <ion-searchbar searchIcon="search-circle-outline" placeholder="Buscar Evento" show-clear-button="focus" [(ngModel)]="searchTerm" (ionChange)="onSearchTermChange()"></ion-searchbar>
+
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content>
-  <ion-list *ngFor="let evento of lista_eventos">
-    <ion-item (click)="editar(evento)">
+  <ion-list *ngIf="eventosLoaded">
+    <ion-item (click)="editar(evento)" *ngFor="let evento of lista_eventos">
       <ion-avatar>
         <img src="{{evento.downloadURL}}"/>
       </ion-avatar>
       <ion-label style="margin-left: 5%">{{evento.nome}}</ion-label>
     </ion-item>
   </ion-list>
+
+  <p *ngIf="!eventosLoaded && searchTerm.length > 0">Nenhum evento encontrado para a pesquisa "{{searchTerm}}".</p>
+  <p *ngIf="!eventosLoaded && searchTerm.length === 0">Carregando eventos...</p>
 
   <ion-fab horizontal="end" vertical="bottom">
     <ion-fab-button (click)="irParaCadastrar()">
@@ -29,8 +31,5 @@
 
   <ion-button (click)="logout()">
     <ion-icon name="exit-outline"></ion-icon>
-   </ion-button>
-   
+  </ion-button>
 </ion-content>
-
-
