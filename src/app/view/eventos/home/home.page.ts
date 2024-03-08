@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { evento } from 'src/app/model/entities/evento';
 import { FirebaseService } from '../../../model/service/firebase.service';
 import { AuthService } from 'src/app/model/service/auth.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -10,12 +11,15 @@ import { AuthService } from 'src/app/model/service/auth.service';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage {
+  formDetalhes: FormGroup;
+  eventoSelecionado: any;
   lista_eventos: evento[] = [];
   public user: any;
   eventosLoaded: boolean = false;
   searchTerm: string = '';
 
   constructor(
+    private formBuilder: FormBuilder,
     private router: Router,
     private firebase: FirebaseService,
     private auth: AuthService
@@ -25,8 +29,32 @@ export class HomePage {
       this.user = user;
       this.carregarEventos();
     }
+    this.formDetalhes = this.formBuilder.group({
+      nome: [''],
+      descricao: [''],
+      dia: [''],
+      mes: [''],
+      ano: [''],
+      horario: ['']
+    });
   }
 
+  fecharDetalhes() {
+    this.eventoSelecionado = null;
+ }
+
+
+  expandirDetalhes(evento: any) {
+    this.eventoSelecionado = evento;
+    this.formDetalhes.patchValue({
+      nome: evento.nome,
+      descricao: evento.descricao,
+      dia: evento.dia,
+      mes: evento.mes,
+      ano: evento.ano,
+      horario: evento.horario
+    });
+ }
   carregarEventos() {
     this.firebase.read(this.user.uid).subscribe(res => {
       this.lista_eventos = res.map(evento => ({

@@ -25,3 +25,16 @@
 #container a {
   text-decoration: none;
 }
+
+.btn-wrapper {
+  text-align: center;
+}
+
+.detalhes-evento ion-item {
+  --ion-item-padding-start: 0;
+  --ion-item-padding-end: 0;
+  --ion-item-padding-top: 5px;
+  --ion-item-padding-bottom: 5px;
+  --ion-label-color: var(--ion-color-step-800);
+ }
+ 
