@@ -6,6 +6,7 @@ import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
 import { SearchBarComponent } from 'src/app/components/search-bar/search-bar.component';
+import { LoadingEventsComponent } from 'src/app/components/loading-events/loading-events.component';
 import { ShowEventComponent } from 'src/app/components/show-events/show-events.component';
 
 
@@ -16,6 +17,6 @@ import { ShowEventComponent } from 'src/app/components/show-events/show-events.c
     IonicModule,
     HomePageRoutingModule
   ],
-  declarations: [HomePage,SearchBarComponent,ShowEventComponent]
+  declarations: [HomePage,SearchBarComponent,ShowEventComponent,LoadingEventsComponent]
 })
 export class HomePageModule {}

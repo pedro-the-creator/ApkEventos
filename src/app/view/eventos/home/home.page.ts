@@ -48,6 +48,9 @@ export class HomePage {
       }) as evento);
       this.eventosLoaded = true;
     });
+    setTimeout(() => {
+      this.eventosLoaded = true;
+   }, 2000);
   }
 
   onEventosLoadedChange(eventosLoaded: boolean) {
@@ -59,7 +62,7 @@ export class HomePage {
   }
 
   editar(evento: evento) {
-    this.router.navigateByUrl("/detalhar", { state: { evento } });
+    
   }
 
   logout() {
