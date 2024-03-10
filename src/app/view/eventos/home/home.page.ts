@@ -39,22 +39,7 @@ export class HomePage {
     });
   }
 
-  fecharDetalhes() {
-    this.eventoSelecionado = null;
- }
-
-
-  expandirDetalhes(evento: any) {
-    this.eventoSelecionado = evento;
-    this.formDetalhes.patchValue({
-      nome: evento.nome,
-      descricao: evento.descricao,
-      dia: evento.dia,
-      mes: evento.mes,
-      ano: evento.ano,
-      horario: evento.horario
-    });
- }
+ 
   carregarEventos() {
     this.firebase.read(this.user.uid).subscribe(res => {
       this.lista_eventos = res.map(evento => ({
@@ -65,6 +50,10 @@ export class HomePage {
     });
   }
 
+  onEventosLoadedChange(eventosLoaded: boolean) {
+    this.eventosLoaded = eventosLoaded;
+ }
+ 
   irParaCadastrar() {
     this.router.navigate(["/cadastrar"]);
   }
