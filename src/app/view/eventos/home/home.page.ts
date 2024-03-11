@@ -50,7 +50,7 @@ export class HomePage {
     });
     setTimeout(() => {
       this.eventosLoaded = true;
-   }, 2000);
+   }, 5000);
   }
 
   onEventosLoadedChange(eventosLoaded: boolean) {

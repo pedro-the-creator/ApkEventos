@@ -4,11 +4,11 @@ import { IonicModule } from '@ionic/angular';
 import { LoadingEventsComponent } from './loading-events/loading-events.component';
 
 @NgModule({
- declarations: [LoadingEventsComponent],
+ declarations: [],
  imports: [
     CommonModule,
     IonicModule,
  ],
- exports: [LoadingEventsComponent]
+ exports: []
 })
 export class ComponentsModule { }

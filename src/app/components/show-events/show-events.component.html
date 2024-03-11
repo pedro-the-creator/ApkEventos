@@ -1,3 +1,5 @@
+
+<app-loading-events *ngIf="!eventosLoaded"></app-loading-events>
 <ion-list *ngIf="eventosLoaded">
   <ion-accordion-group>
       <ion-accordion *ngFor="let evento of lista_eventos">
