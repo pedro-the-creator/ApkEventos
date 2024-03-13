@@ -61,9 +61,9 @@ export class HomePage {
     this.router.navigate(["/cadastrar"]);
   }
 
-  editar(evento: evento) {
-    
-  }
+  
+
+ 
 
   logout() {
     this.auth.signOut()

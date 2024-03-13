@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Atualizar</ion-title>
+    <ion-title>Editar Evento</ion-title>
     <ion-button slot="start" expand="block" fill="clear" size="small" routerLink="/home">
       <ion-icon name="arrow-back-outline"></ion-icon>
     </ion-button>
@@ -9,11 +9,6 @@
 
 <ion-content>
   <ion-list>
-    <ion-item>
-      <ion-label>Habilitar Edição</ion-label>
-      <ion-toggle [checked]="edicao" (click)="habilitarEdicao()"></ion-toggle>
-    </ion-item>
-
     <form [formGroup]="formDetalhar" (ngSubmit)="submitForm()" class="form">
       <ion-item>
         <ion-input label="Nome" placeholder="Insira o nome" formControlName="nome"></ion-input>

@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 import { evento } from 'src/app/model/entities/evento';
 
 @Component({
@@ -11,6 +12,9 @@ export class ShowEventComponent {
   @Input() eventosLoaded: boolean = false;
   @Output() eventosLoadedChange = new EventEmitter<boolean>();
 
+  constructor(private router: Router) {}
+  
+
   eventoSelecionado: evento | null = null;
 
   expandirDetalhes(evento: evento) {
@@ -18,7 +22,7 @@ export class ShowEventComponent {
   }
 
   editarEvento(evento: evento) {
-
+    this.router.navigate(['/detalhar'], { state: { evento } });
    
   }
   fecharDetalhes() {

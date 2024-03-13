@@ -1,7 +1,5 @@
 import horario from "./horario";
 
-
-
 export class evento{
 
 

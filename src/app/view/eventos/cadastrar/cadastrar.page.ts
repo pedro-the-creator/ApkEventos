@@ -53,13 +53,7 @@ export class CadastrarPage implements OnInit {
     return this.formCadastro.controls;
   }
 
-  submitForm(): void {
-    if (!this.formCadastro.valid) {
-      this.alert.presentAlert('Erro', 'Formulário Inválido!');
-    } else {
-      this.alert.simpleLoader();
-    }
-  }
+ 
 
   cadastrar() {
     const nome = this.formCadastro.get('nome')?.value;

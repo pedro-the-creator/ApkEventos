@@ -8,6 +8,7 @@ import { IonicModule } from '@ionic/angular';
 import { CadastrarPageRoutingModule } from './cadastrar-routing.module';
 
 import { CadastrarPage } from './cadastrar.page';
+import { FormularioCadastroComponent } from 'src/app/components/form-dados/form-dados.component';
 
 @NgModule({
   imports: [
@@ -17,6 +18,6 @@ import { CadastrarPage } from './cadastrar.page';
     CadastrarPageRoutingModule,
     ReactiveFormsModule
   ],
-  declarations: [CadastrarPage]
+  declarations: [CadastrarPage, FormularioCadastroComponent ]
 })
 export class CadastrarPageModule {}

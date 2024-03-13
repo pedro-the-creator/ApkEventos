@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import horario from 'src/app/model/entities/horario';
 import { evento } from 'src/app/model/entities/evento';
@@ -14,7 +14,7 @@ import { Alert } from 'src/app/commom/alert.service';
   templateUrl: './detalhar.page.html',
   styleUrls: ['./detalhar.page.scss'],
 })
-export class DetalharPage implements OnInit {
+export class DetalharPage implements OnInit, OnDestroy {
   formDetalhar: FormGroup;
   user! : any;
   evento!: evento;
@@ -53,9 +53,11 @@ export class DetalharPage implements OnInit {
        mes: [this.evento.mes, [Validators.required, Validators.min(1), Validators.max(12)]],
        ano: [this.evento.ano, [Validators.required, Validators.min(1900), Validators.max(2099)]],
        horario: [this.evento.horario, [Validators.required]]
-    });
-    this.formDetalhar.disable(); // desativa o formulário no início
-  
+    });  
+   }
+
+   ngOnDestroy() {
+      this.evento = this.evento ?? null;
    }
    
 
@@ -74,15 +76,7 @@ export class DetalharPage implements OnInit {
   }
    
 
-habilitarEdicao() {
-  if (this.edicao) {
-    this.edicao = false;
-    this.formDetalhar.disable(); 
-  } else {
-    this.edicao = true;
-    this.formDetalhar.enable(); 
-  }
-}
+
 
 editar() {
   let formValues = this.formDetalhar.getRawValue();
