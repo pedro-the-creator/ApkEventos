@@ -47,7 +47,7 @@
         </ion-item>
         <span *ngIf="formCadastro.get('horario')?.touched && formCadastro.get('horario')?.errors?.['required']">Horário é Obrigatório!</span>
         <ion-item>
-          <ion-button size="default" color="success" shape="round">
+          <ion-button size="default" color="secondary" shape="round">
             <input type="file" (change)="uploadFile($event.target)" />
           </ion-button>
         </ion-item>
