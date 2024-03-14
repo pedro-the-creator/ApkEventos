@@ -8,6 +8,11 @@ import { IonicModule } from '@ionic/angular';
 import { DetalharPageRoutingModule } from './detalhar-routing.module';
 
 import { DetalharPage } from './detalhar.page';
+import { FormDadosComponent } from 'src/app/components/form-dados/form-dados.component';
+import { AppModule } from 'src/app/app.module';
+import { ComponentsModule } from 'src/app/components/components.module';
+
+
 
 @NgModule({
   imports: [
@@ -16,7 +21,9 @@ import { DetalharPage } from './detalhar.page';
     IonicModule,
     DetalharPageRoutingModule,
     ReactiveFormsModule,
+    ComponentsModule
+    
   ],
-  declarations: [DetalharPage]
+  declarations: [DetalharPage, ]
 })
 export class DetalharPageModule {}

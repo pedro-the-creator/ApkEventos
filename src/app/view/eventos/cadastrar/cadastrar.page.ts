@@ -43,62 +43,11 @@ export class CadastrarPage implements OnInit {
      });
   }
 
-  public uploadFile(imagem: any) {
-    this.imagem = imagem.files;
-  }
-
-  ngOnInit() {}
-
-  get errorControl() {
-    return this.formCadastro.controls;
-  }
-
  
 
-  cadastrar() {
-    const nome = this.formCadastro.get('nome')?.value;
-    const dia = this.formCadastro.get('dia')?.value;
-    const mes = this.formCadastro.get('mes')?.value;
-    const ano = this.formCadastro.get('ano')?.value;
-    const descricao = this.formCadastro.get('descricao')?.value;
-    const horario = this.formCadastro.get('horario')?.value;
-   
-    if (nome && dia && mes && ano && descricao && horario) {
-       let novo: evento = new evento(
-         nome,
-         dia,
-         mes,
-         ano,
-         descricao,
-         horario,
-         this.user.uid
-       );
-       novo.uid = this.user.uid;
-       this.alert.simpleLoader();
-       if (this.imagem) {
-         this.firebase
-           .uploadImage(this.imagem, novo)
-           .then(() => {
-             this.alert.dismissLoader();
-           })
-           .catch((error) => {
-             console.error(error);
-           });
-       } else {
-         this.firebase
-           .create(novo)
-           .then(() => {
-             this.alert.dismissLoader();
-           })
-           .catch((error) => {
-             console.error(error);
-           });
-       }
-       this.router.navigate(['/home']);
-       this.alert.presentAlert('Sucesso', 'Evento Cadastrado!');
-    } else {
-       this.alert.presentAlert('Erro', 'Preencha todos os campos!');
-    }
-   }
+  ngOnInit() {}
+  
+
+  
    
 }

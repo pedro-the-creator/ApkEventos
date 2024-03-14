@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Alert } from 'src/app/commom/alert.service';
 import { evento } from 'src/app/model/entities/evento';
+import horario from 'src/app/model/entities/horario';
 import { AuthService } from 'src/app/model/service/auth.service';
 import { FirebaseService } from 'src/app/model/service/firebase.service';
 
@@ -10,91 +12,109 @@ import { FirebaseService } from 'src/app/model/service/firebase.service';
   templateUrl: './form-dados.component.html',
   styleUrls: ['./form-dados.component.scss'],
 })
-export class FormularioCadastroComponent implements OnInit {
-  @Input() formCadastro!: FormGroup;
-  imagem: any;
+export class FormDadosComponent implements OnInit {
+  @Input() formCadastro!: FormGroup; 
   user!: any;
+  nome!: string;
+  descricao!: string;
+  ano!: number;
+  mes!: number;
+  dia!: number;
+  horario!: horario;
+  public imagem: any;
+  eventoId!: string;
+  evento!: evento;
+ 
 
   constructor(
     private alert: Alert,
-    private firebase: FirebaseService,
     private authService: AuthService,
-    private formBuilder: FormBuilder
+    private firebase: FirebaseService,
+    private router: Router
   ) {
     this.user = this.authService.getUserLogged();
   }
 
   ngOnInit() {
-    this.formCadastro = this.formBuilder.group({
-      nome: ['', [Validators.required]],
-      descricao: ['', [Validators.required]],
-      dia: ['', [Validators.required, Validators.min(1), Validators.max(31)]],
-      mes: ['', [Validators.required, Validators.min(1), Validators.max(12)]],
-      ano: ['', [Validators.required, Validators.min(1900), Validators.max(2099)]],
-      horario: ['', [Validators.required]]
-     });
+    this.evento = history.state.evento;
   }
 
-  uploadFile(event: any) {
-    this.imagem = event.target.files;
+  public uploadFile(imagem: any) {
+    this.imagem = imagem.files;
   }
 
   get errorControl() {
     return this.formCadastro.controls;
   }
 
-  submitForm() {
-    if (!this.formCadastro.valid) {
-      this.alert.presentAlert('Erro', 'Formulário Inválido!');
-      return;
-    }
 
-    // Form is valid, proceed with submission logic
+  excluir() {
+    this.alert.simpleLoader(); 
+    this.firebase.delete(this.evento.id)
+      .then(() => {
+        this.alert.dismissLoader();
+        this.router.navigate(['/home']);
+      })
+      .catch(error => {
+        console.error(error);
+        this.alert.dismissLoader();
+      });
+  }
+ 
+
+  submitForm(): void {
+    if (!this.formCadastro.valid) {
+       this.alert.presentAlert('Erro', 'Formulário Inválido!');
+    } else {
+       this.cadastrar(); 
+    }
+   }
+
+   cadastrar() {
+  
+    if (!this.formCadastro.valid) {
+       this.alert.presentAlert('Erro', 'Formulário Inválido!');
+       return; 
+    }
+   
+
+    this.alert.simpleLoader();
+   
+  
     const nome = this.formCadastro.get('nome')?.value;
     const dia = this.formCadastro.get('dia')?.value;
     const mes = this.formCadastro.get('mes')?.value;
     const ano = this.formCadastro.get('ano')?.value;
     const descricao = this.formCadastro.get('descricao')?.value;
     const horario = this.formCadastro.get('horario')?.value;
+   
+    let novo: evento = new evento(nome, dia, mes, ano, descricao, horario, this.user.uid);
+    novo.uid = this.user.uid;
 
-    if (nome && dia && mes && ano && descricao && horario) {
-      let novo: evento = new evento(
-        nome,
-        dia,
-        mes,
-        ano,
-        descricao,
-        horario,
-        this.user.uid
-      );
-      novo.uid = this.user.uid;
-
-      this.alert.simpleLoader();
-
-      if (this.imagem) {
-        this.firebase // Assuming you have an uploadImage method in FirebaseService
-          .uploadImage(this.imagem, novo)
-          .then(() => {
-            this.alert.dismissLoader();
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-      } else {
-        this.firebase // Assuming you have a create method in FirebaseService
-          .create(novo)
-          .then(() => {
-            this.alert.dismissLoader();
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-      }
-
-      this.formCadastro.reset();
-      this.imagem = null;
+    if (this.imagem) {
+       this.firebase.uploadImage(this.imagem, novo)
+         .then(() => {
+           this.alert.dismissLoader();
+           this.router.navigate(['/home']);
+           this.alert.presentAlert('Sucesso', 'Evento Cadastrado!');
+         })
+         .catch((error) => {
+           console.error(error);
+           this.alert.dismissLoader();
+           this.alert.presentAlert('Erro', 'Falha ao Cadastrar!');
+         });
     } else {
-      this.alert.presentAlert('Erro', 'Preencha todos os campos!');
+       this.firebase.create(novo)
+         .then(() => {
+           this.alert.dismissLoader();
+           this.router.navigate(['/home']);
+           this.alert.presentAlert('Sucesso', 'Evento Cadastrado!');
+         })
+         .catch((error) => {
+           console.error(error);
+           this.alert.dismissLoader();
+           this.alert.presentAlert('Erro', 'Falha ao Cadastrar!');
+         });
     }
-  }
+   }
 }

@@ -15,7 +15,7 @@ import { Alert } from 'src/app/commom/alert.service';
   styleUrls: ['./detalhar.page.scss'],
 })
 export class DetalharPage implements OnInit, OnDestroy {
-  formDetalhar: FormGroup;
+  formCadastro: FormGroup;
   user! : any;
   evento!: evento;
   nome!: string;
@@ -33,7 +33,7 @@ export class DetalharPage implements OnInit, OnDestroy {
      private formBuilder : FormBuilder,
      private alert : Alert) {
     this.user = this.authService.getUserLogged();
-    this.formDetalhar = this.formBuilder.group({
+    this.formCadastro = this.formBuilder.group({
       nome: ['', [Validators.required]],
       descricao: ['', [Validators.required]],
       dia: ['', [Validators.required]],
@@ -46,7 +46,7 @@ export class DetalharPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.evento = history.state.evento;
-    this.formDetalhar = this.formBuilder.group({
+    this.formCadastro = this.formBuilder.group({
        nome: [this.evento.nome, [Validators.required]],
        descricao: [this.evento.descricao, [Validators.required]],
        dia: [this.evento.dia, [Validators.required, Validators.min(1), Validators.max(31)]],
@@ -62,12 +62,12 @@ export class DetalharPage implements OnInit, OnDestroy {
    
 
   get errorControl() {
-    return this.formDetalhar.controls;
+    return this.formCadastro.controls;
   }
 
   
   submitForm(): void {
-    if (!this.formDetalhar.valid) {
+    if (!this.formCadastro.valid) {
       this.alert.presentAlert('Erro', 'Formulário Inválido!');
     } else {
       this.alert.simpleLoader();
@@ -79,7 +79,7 @@ export class DetalharPage implements OnInit, OnDestroy {
 
 
 editar() {
-  let formValues = this.formDetalhar.getRawValue();
+  let formValues = this.formCadastro.getRawValue();
   let novo: evento = new evento(formValues.nome, formValues.dia, formValues.mes, formValues.ano, formValues.descricao, formValues.horario, this.user.uid);
   novo.id = this.evento.id;
   if(this.imagem){

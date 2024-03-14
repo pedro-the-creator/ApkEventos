@@ -13,11 +13,13 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { LoadingEventsComponent } from './components/loading-events/loading-events.component';
+import { FormDadosComponent } from './components/form-dados/form-dados.component';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
-  declarations: [AppComponent,],
+  declarations: [AppComponent, ],
   imports: [BrowserModule,
      AngularFireModule.initializeApp(environment.firebaseConfig),
      AngularFireDatabaseModule,
@@ -25,9 +27,14 @@ import { LoadingEventsComponent } from './components/loading-events/loading-even
      AngularFireStorageModule,
      AngularFireAuthModule,
      IonicModule.forRoot(),
-      AppRoutingModule,],
+      AppRoutingModule,
+      CommonModule,
+      FormsModule,
+      ReactiveFormsModule,
+      ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  exports: []
 })
 export class AppModule {}
